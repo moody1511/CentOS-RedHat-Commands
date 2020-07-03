@@ -1,0 +1,1509 @@
+ifup |_| adapter=turn on ethernet adapter
+ifconfig, ip addr, =ipconfig
+
+
+/boot =contains grub.cfg
+/root =root user directory
+/dev =system devices (cdrom,speakers,flashdrive
+/etc =configuration files
+/bin ->/usr/bit =everyday user commands
+/sbin -> /usr/sbin =system/filesystem commands
+/opt =optional add-on applications
+/proc =running pricesses(only exist in Memory)
+/lib->usr/lib =C programming library files used by commands and apps
+/tmp =temporary files
+/home =directory for user
+/var =system logs
+/run =system deamos start with temporary runtime filesystem
+/mnt =mount external filesystem(eg NFS)
+/media =cdrom mounts
+
+
+
+cd =change directory
+cd .. =one directory reverse
+pwd =print working directory
+ls =listing
+ls -l =listing list
+ls -ltr =listing list with reverse sort
+
+Directory Listint Attributes
+First field
+D.......=directory
+L......=list
+-.....=regular file
+
+
+
+
+Second Field-
+Third Field =ownership
+
+Fourth Field=group which owns that directory
+
+Creating files
+touch =create file
+cp |_| |_| =copy file |_|=source |_|=destination
+vi =if you enter press shift+: and write wq enter
+
+Creating directory
+mkdir
+
+
+
+
+File Types:
+- =regular file
+d =directory
+l =link
+c =special file or device file
+s =socket
+p =named pipe
+b =block device
+
+
+find . -name "|_|" =find in current directory with name "|_|"
+locate | need yum -y install mlocate | updatedb
+
+passwd |_| =change password
+
+
+Wild Cards:
+* =represents zero or more characters
+? =represents single character
+[] =represents range of characters
+\ =escape charcter
+^ =beginning  of the line
+$ =end of the line 
+
+touch test{1..20} create files with test 1 to test 20
+rm =remove file eg rm *a?*
+rm -f
+rm -r -remove without permission(everything)
+
+
+cat -=pen text inside file
+
+
+Soft and Hard Links
+inode =pointer or number of a file on the hard disk
+Soft link =link will be removed if file is removed or renamed
+Hard link =Deleting, renaming or moving the original file will not affect the hard link
+
+
+Command syntax
+
+command option argument
+
+man |_| =manual for commands
+
+File Permissions
+
+r=read
+w=write
+x=execute
+
+Controlled at three levels
+u=user
+g=group
+o=other=everyone on the system
+Example
+-rwxrwxwrx -file with full control of three levels user,group,other
+
+To change permission
+chmod |_|=group -w,r,e |_|=filename =remove permisions
+chmod |_|=group +w,r,e |_|=filename 
+chmod |ugo|=all groups +w,r,e |_|=filename 
+
+0 No permission
+1 Execute
+2 Write
+3 Execute+write
+4 Read
+5 Read+Execute
+6 Read+write
+7 Read+Write+Execute
+
+
+File Ownership
+Owners only
+User or group
+
+chown |_|=account |_|=file name
+chgrp |_|=account |_|=file name
+
+
+Access Control List(ACL)
+
+setfacl -m u:user:rwx /path/to/file      =add permission to user
+setfacl -m g:group:rw /path/to/file      =add permission to group
+setfacl -dm "entry" /path/to/dir
+setfacl -x u:user /path/to/file =remove specific entry
+set -b path/to/file =remove all entries
+
+
+getfacl=show permissions for files
+
+Help Commands
+Whatis
+command --help
+man
+
+
+
+Add text to files
+vi
+Redirect command output > or >>
+echo > or >>
+
+Standard Output to File(tee)
+echo "Text" | tee |_|=file name
+echo "Text" | tee -a |_|=file name(add text in another line)
+wc -c=cout bytes on file
+
+
+Tee
+Store and view output of any command
+
+
+Pipes
+Output of one command to input on another command
+
+command1 [argument1] | command2 [argument2]
+
+ll the same like ls -l
+
+
+ls -l | more
+ls -l | tail -l
+ls -ld */ =list onlu directories
+
+File Maintenance Command
+cp=copy |_|=file .=home directory
+rm=remove
+mv=move
+mkdir=make directory
+
+
+
+rmdir or rm -r =remove directory
+
+
+
+chgrp =change group priveleges
+chgrp -R |groupname| |username| =change group priveleges on files of user to groupname
+
+
+
+
+chown = change privileges
+
+
+File Display Commands
+cat= show all text
+more=show text in percentage
+less
+head -2 =upper 2 lines of file
+tail -2 =lower 2 lines of file
+
+
+Filters/Text Processors
+cut -c1,3,5,7    =show 1,3,5,7 letter of text in every line
+cut -c1-5        =show letters from 1 to 5 
+cut -c1-5,7-9        =show letters from 1 to 5 and 7-9
+cut -b1-5,7-9
+cut -d: -f 6 /etc/passwd   =show column 6 after :=colon
+
+
+awk '{print$1}' |_|=filename = shows first line of text
+ls -l | awk '{print $1,$3}'  =shows 1 and 3 column in ls -l
+ls -l | awk '{print $NF}' =shows last column in ls -l
+ls -l | awk '{print $9}' =shows last column in ls -l
+awk '/Tadeusz/ {print}' imiona = look for text in file
+awk -F: '{print $1}' /etc/passwd  =show 
+echo "Hello tom" |  awk '{$2="Stan"; print $0}'  =replace second word by text in ""
+cat imiona | awk '{$2="Gniadek";print $0}' =replace second word by text in ""
+awk 'length($0) >15'|_| =show word bigger than 14 letters
+ls -l | awk '{if($9 == "moody1") print $0;}'  = check 9 column if have text "moody1" and print
+ls -l | awk '{print $9}'  = shows last column  and print name
+
+
+
+grep = "Global Regular Expression print"  
+grep |text| |filename| = show text in file
+grep -c |text| |filename| = count how much text in file
+grep -i |text| |filename| = ignore upper or lower case
+grep -n |text| |filename| = show in which line is this text
+grep -v |text| |filename| = show everything excluded(without, nor) text
+grep -v |text| |filename| | awk '{print $1}' =shows 1 column of text without |text|
+grep -v |text| |filename| | awk '{print $1}' | cut -c1,2,3   =shows 3 letters first column without |text|
+
+egrep -i "|keyword|||keyword|" imiona  = shows text only with two keywords
+
+
+
+sort =sort in alfabetical order
+sort -r |filename| =sort reverse
+sort -k2 |filename| =sort by 2 column(field)
+sort filename | uniq =sort by 2 column(field)
+sort filename | uniq -c =sort by 2 column(field) and show count of lines the same
+sort filename | uniq -d =show only reapeated lines
+uniq=Show Repetable words
+
+
+wc=Word Count
+wc |filename|
+first column of result lines
+second column of result words
+third column of result bytes
+
+wc -l |filename| =show only lines count of file
+wc -w |filename| =show only words count of file
+
+wc -m |filename| =show only characters count of file
+wc -c |filename| =show only bytes count of file
+ls -l | wc -l =count files, ALWAYS -1
+
+Compare files
+diff
+cmp
+
+Compress and un-Compress Files
+tar = compress files to one file
+tar -cvf |savedfilename.tar| |inputfile|
+-c =Creates a new .tar archive file.
+-v =Verbosely show the .tar file progress.
+-f =File name type of the archive file.
+-x = extract(unzip) 
+
+
+gzip |filename.tar|
+gzip -d or gunzip
+
+truncate = shrink or extend size of file to specified size
+truncate -s |size| |filename|
+
+
+Combining Files or Splitting
+split -l 2 |filenamesource| |filenameoutput| = split file(filenamesource) into filenameoutput+a,b,c.. 
+with tho lines of text 
+
+cat |file1| |file2| |file3| > |filename| =combine text from file1,file2.... to filename
+
+
+vi =   Linux File Editor
+i = insert
+Esc = escape from current mode
+r  = replace then hit letter which you want to have
+d =delete
+:q! =quit withou saving
+:wq! =quit and save  or Shift+Z+Z
+u = undo
+x= delete one letter
+o = new line(insert mode)
+a = advanced to insert mode in cursor location
+d+d = remove line
+/|word| =search for word in file
+:%s/|wordinput|/|wordoutput|/ = substitute wordinput into wordoutput in file
+
+
+
+
+Difference between vi and vim
+Vim have more options but is made on vi repository
+https://www.openvim.com/
+http://www.vimgenius.com/
+
+
+sed Command
+Replace string with new String
+Find and delete line
+Remove empty lines
+Remove first or n lines
+Replace tabs with spaces
+Show Definded lines from file
+Substitute vi editor
+
+
+sed -i 's/|textsource|/|textoutput|/g' |filename| = replace and save textsource with textoutput in 
+global mode to file
+
+sed 's/|text|//g' |filename| = delete text from file
+sed '/|text|/d' |filename| = Delete lines with text source
+sed '/|^$/d' |filename| = delete empty lines from file
+sed '1d' |filename| =delete first line from file
+sed '1,2,3d' |filename| =delete 1,2,3 line from file
+sed 's/\t/ /g' |filename|  =replace tabs with spaces in tex
+sed 's/ /\t/g' |filename|  =replace tabs with spaces in tex
+sed -n 12,18p |filename| =shows lines from 12 to 18
+sed 12,18d |filename| = shows lines from 1 to 11 except 12 to 18
+sed G |filename| = make empty lines from every used line
+sed '8!s/|word|/s/' imiona = replace(substitute) word with s letter except 8 line
+
+
+
+User Account Management
+
+useradd 
+user add |word| =create user
+id |username| =check his uid,gid and group 
+useradd -g |groupname| -u |UID| -s /bin/bash -c "|Comment|" -m -d /home/|username| |username|
+
+groupadd
+cat /etc/group =check if group is created
+
+userdel
+userdel -r |username|  =delete user and hishome directory
+
+groupdel
+groupdel |groupname| =delete group
+
+usermod
+usermod -G |groupname| |username| = add username to group
+
+
+Files
+/etc/passwd
+/etc/group
+/etc/shadow
+
+
+Switch Users and Sudo Access
+su =switch user to another
+sudo |command| = run command with sudo privelege
+sudo su =switch to root
+
+visudo =open /etc/sudoers on bottom we can all users to root privileges
+
+Files
+/etc/sudoers
+
+
+Monitor Users
+who =check how many people are logged in to system
+
+last=check logs(when someone reboot or is logged in)
+last | more 
+
+w =same as who with more information
+
+finger=program
+
+id = information about user
+
+
+Talking to Users
+users=list of logged users
+
+wall= broadcast message to everone who is logged on system
+|text| + ctrl+D
+
+write= message to one user
+write |user| message
+
+
+Linux Account Authentication
+Types of Accounts:
+Local accounts 
+Users created locally on computer
+
+
+Domain/Directory accounts
+
+
+Active Directory =Microsoft
+IDM=Identity Manager
+WinBIND =Linux to communicate with Windows(Samba):
+OpenLdap=Open souce, protocol Lightweight Directory Access Protocol
+IBM Directory Server
+LDAP=Lightweight Directory Access Protocol
+
+
+System Utility Commands
+date = shows actual date
+uptime =shows uptime of system
+hostname = name of LInux Machine
+uname =  shows version of system
+uname -a =shows more information about system
+which =show where command is located
+cal =shows calender
+cal |year| =shows calender on every month of the year
+bc = binary calculator 
+
+Processes and Jobs
+systemctl or service =shows every process runned on system
+systemctl status |process name| =shows process 
+systemctl stop |process name|  =stops process
+systemctl enable |process name|  =enable process
+
+
+ps 
+ps -ef | grep |processname|
+
+top   =monitor of system usage
+
+kill |processname| =kills process like systemctl stop |processname|
+
+
+crontab
+crontab -e
+
+at
+
+Cron Jobs
+4 different types of cronjobs:
+Hourly
+Daily
+Weekly
+Monthly
+
+All crons are in  /etc/cron.
+Timing for each are in /etc/anacrontab except hourly
+Hourly /etc/cron.d/0hourly/
+
+
+If we want to run scrips daily we need to enter
+/etc/cron.|dayoftime| and paste script
+
+Process Management
+When we run process we can press Ctrl+z, jobs, bg
+
+
+Foreground fg
+
+
+Run process after exit 
+nohup process ^
+nohup >/dev/null 2>&1 &
+
+
+Kill process pkill |processname|
+
+
+nice = set priority of process
+nice -n 5 process
+
+System Monitoring
+top =all processes viewer
+
+df = Report disk space usage
+df -h =shows with human info
+
+dmesg = System warnings
+
+yum install sysstat -y
+iostat 1
+
+
+netstat
+netstat -rnv = show internet interfaces
+
+
+free  = physical free space
+
+
+cat /proc/cpuinfo = Info about CPU
+cat /proc/meminfo  = Info about Memory
+
+Log Monitoring
+/var/log
+-boot
+-chrony =ntp service
+-cron
+-maillog
+-secure
+-messages
+-httpd
+
+
+System Maintenance Commands
+shutdown =  Halt, power-off or reboot the machine
+init 0-6
+reboot = restart
+halt =
+
+Changing System Hostname
+/etc/hostname =file which have hostname 
+hostnamectl -set-hostname |hostname| = set hostname 
+sysctl kernel.hostname=|hostname| = set hostname
+
+Finding System Information
+cat /etc/redhat-release
+uname -a 
+dmidecode
+
+System Architecture
+Depends on processor chipset 
+Difference 32 and 64 number of calculations per second
+Command:
+arch
+uname -a
+
+
+Terminal Control Keys
+CTRL-u = erase everything what we typed
+CTRL-C =stop/kill command
+CTRL-Z =Suspend a Command
+CTRL-D =exit from interactive program
+
+Terminal Commands
+clear =clears screen
+exit = exit out of shell, terminal or user session
+script = stores terminal activities in a log file named by user 
+
+
+
+Recover Root Password
+WHen systen is running CTRL+e on first option
+after root=/dev/mapper/centos=root ro CHANGE to
+root=dev/mapper/centos=root rw init=/systroot/bin/sh
+CTRL+X
+mount -o remount,rw /sysroot
+chroot /systroot
+passwd root =change password of root
+touch /.autorelabel
+
+Shift+e
+rd.break enforcing=0     = at the end of line
+mount -o remount,rw /sysroot
+chroot /systroot
+passwd root
+touch /.autorelabel
+
+
+
+SOS REPORT
+create logs for support to send it through ftp service
+
+
+Environment Variables
+Dynamic-named value that can affect running processes 
+Set of defined rules
+
+View all environment Variables
+printenv
+
+View ONE environment Variable
+echo $SHELL
+
+SEt environment Variables
+export TEST=1
+echo $TEST
+
+SET environment Variables permanently
+vi .bashrc
+TEST='123;
+export TEST
+echo $TEST
+
+SET GLOBAL environment Variables permanently
+vi /etc/profile or /etc/bashrc
+TEST='123'
+export TEST
+echo $TEST
+
+Linux Kernel
+Interface between Hardware and Software
+
+Shell
+Container which is interface between users and Kernel/OS
+CLI is a Shell
+Types of Shells:
+Gnome
+KDE
+sh
+bash
+csh and tcsh
+ksh
+
+Shell Script
+shell script is executable file containing multiple shell commands.
+Need to have executable permissions -rwxr-xr-x
+Can contain:
+
+Shell(#!/bin/bash)
+Comments(# comments)
+Commands (echo,cp,grep etc.)
+Statements (if, while, for etc)
+
+Basic scripts
+Run scipt in file
+./|_| = run scripts when we are in directory
+
+Always starts with
+#!/bin/bash
+echo= empty lines
+
+Variable is $ for script example
+a=Something
+echo "Something $a"
+
+read |variablename| = read is like cin in programming
+If variable is linux command we need to name is as `|command|` symbol below EScAPE Button
+a=`hostname'
+
+If Scripts
+if [$|command|]
+then
+|command|
+else
+
+
+For Loop scripts 
+for |command|
+do
+
+
+Do-while Scripts
+while [condition]
+do
+	command1
+	command2
+
+Case Statement Scripts
+echo '|variable| = Text'
+echo '|variable2| = Text'
+read choices
+case $choices in
+a) date;; =command to run when we run script
+b) ls;;
+
+                esac
+
+ 
+
+ 
+
+Check Other Servers Connectivity
+$? =output of command
+pi
+
+ping -c1 192.168.0.1
+                if [$? -eq 0 ]
+                then
+                echo OK
+                else echo not ok
+                fi
+
+ 
+
+Ping host from variable
+#!/bin/bash
+hosts="|ipaddress|"
+ping -c1 $hosts &> /dev/null
+                if [$? -eq 0 ]
+                then
+                echo $hosts is OK
+                else
+                echo $hosts is not ok
+                fi
+
+ 
+
+Multiple IP's
+
+vi myhosts
+
+|ipaddress|
+
+#!/bin/bash
+hosts="/home/moody/ps/hosts"
+for ip in $(cat $hosts)
+
+do 
+
+                ping -c1 $ip &> /dev/null
+                if [$? -eq 0 ]
+                then
+                echo $ip is OK
+                else
+                echo $ip is Not OK
+                fi
+
+ 
+
+
+Aliases
+alias l="ls -al"
+alias pl="pwd;ls "
+alias tell="whoami;hostname;pwd"
+alias dir="ls -l | grep ^d"  =^ everything that start on d
+alias d="df -h | '{print \$6}' | cut -c1-4"
+
+ 
+
+alias =list all aliases
+
+unalias |aliasname|  = remove alias from device
+
+Create User or Gloab Aliases
+User =applies to specific user profile
+Global = Applies to everyone
+For user
+/home/user/.bashrc
+
+
+For Global
+/etc/bashrc
+
+Shell History
+history =list all used commands
+/home/yourname/.bash_history
+
+
+
+
+
+Network Interface files
+/etc/nsswitch.conf
+/etc/hosts
+/etc/hostname
+/etc/sysconfig/network
+/etc/sysconfig/network-scripts/ifcfg-nic =interface configuration file
+/etc/resolv.conf  = DNS server
+
+ 
+Network Commands
+ping
+ifconfig
+ifup / ifdown
+netstat
+netstat -rnv
+
+tcpdump   = tracert
+tcpdump -i |interface name|
+
+NIC Information - Connecting two internet intefaces into one
+NIC=Network Interface Card
+
+ethtool |interface name|
+
+modprobe bonding
+modinfo bonding
+
+create /etc/sysconfig/network-scripts/ifcfg-bond0
+edit /etc/sysconfig/network-scripts/ethernet1
+edit /etc/sysconfig/network-scripts/ethernet2
+
+ 
+
+vi /etc/sysconfig/network-scripts/ifcfg-bond0  and add
+
+DEVICE=bond0
+TYPE=bond
+NAME=bond0
+BONDING-MASTER=yes
+BOOTPROTO=none  /static
+ONBOOT=yes
+IPADDR=
+NETMASK=
+GATEWAY=
+BONDING OPTS="mode=5 miimon=100"
+
+Edit first NIC file
+vi /etc/sysconfig/network-scripts/ifcfg-|interfacename|
+TYPE=ETHERNET
+BOOTPROTO=none
+DEVICE=|interfacename|
+ONBOOT=yes
+HWADDR=|mac address from ifconfig|
+MASTER=bond0
+SLAVE=yes
+
+systemctl restart NetworkManager
+
+
+
+
+
+
+Downloading Files or Apps
+wget |sourcelink|
+
+
+Curl and ping commands
+curl |website|
+curl -O |website| = Download files
+
+
+
+
+FTP
+FTP Port =21
+
+FTP SERVER
+yum install vsftpd
+vi /etc/vsftpd/vsftpd
+
+anonymous_enable=NO
+ascii_upload_enable=YES
+ascii_download_enable=YES
+ftpd_banner=Welcome bla bla bla
+
+At the end of line
+use_localtime=YES
+
+systemctl start vsftpd
+systemctl enable vsftpd
+systemctl stop firewalld
+systemctl disable firewalld
+
+FTP CLIENT
+yum install ftp
+ftp |ipaddress|
+bi
+hash
+put |nameoffile|
+bye
+
+
+firewall-cmd --zone=public --permanent --add-port=21/tcp
+firewall-cmd --zone=public --permanent --add-service=ftp
+firewall-cmd --reload
+
+
+
+SCP Secure Copy Protocol
+Default port 22 (SSH)
+
+scp |filename| moody@192.168.1.x:/home/moody
+
+
+
+rsync-Remote Synchronization
+tranfering and synchromnizing files
+port=SSH(22)
+rsync -zvh backup.tar /tmp/backups
+rsync -azvh /home/moody /tmp/backups/    = synchronize all files in home directory
+
+rsync -avz backup.tar moody@192.168.1.108:/tmp/backups
+
+rsync -avzh moody@192.168.1.108:/home/moody/serverfile /tmp/backups
+
+
+System Updates and Repos
+Repos=Repositories
+yum(CentOS),apt-get(other Linux)
+rpm(Red Hat Package Manager)
+
+
+/etc/yum.repos.d
+
+rpm -qa    = check installed packages
+rpm -qa |grep bind    = dns package
+
+rpm -ihv /tmp/package.rpm    =install package with rpm
+rpm -e    = remove packege and unistall
+
+yum install
+yum remove |packagename|  = remove package
+
+
+System Upgrade/Patch Management
+yum update -y
+
+yum upgrade  = delete packages
+yum update  = preserve old packages
+
+
+
+
+Advanced Package Management
+sudo yum --disablerepo="*" --enablerepo="epel" list available   = list all packages in epel repo
+
+yum repolist
+yum install |packagename|*
+yum remove |packagename|*
+
+wget |downloalink|
+rpm -hiv |packagename|
+rpm -e |packagename|
+
+
+rpm -qi   = information about package
+rpm -qc   = information about used files of this package
+sudo dnf localinstall google-chrome-stable_current_x86_64.rpm
+
+which |packagename|  = show used /bin/ directory
+
+Rollback Updates and patches
+
+
+Install EPEL(Enterprise linux) Repositories
+dnf install epel-release -y
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+dnf config-manager --set-enabled PowerTools
+
+
+yum history
+yum history undo |id| = undo process from history
+
+
+
+SSH and Telnet
+Telnet = unsecured connections between computers
+
+
+SSH =Secured
+systemctl status sshd
+
+
+DNS Domain Name System
+/etc/named.conf
+/var/named
+
+Service
+systemctl restart named
+
+Download Install and Configure DNS server
+yum install bind bind-utils -y
+
+vi /etc/named.conf
+listen-on port 53 (127.0.0.1; 192.168.1.x;);
+
+Zone "lab.local {
+	type master;
+	file "forward.lab";
+	allow-update {none;};
+};
+
+Zone "1.168.192.in-addr-arpa" {
+	type master;
+	file "reverse.lab";
+	allow-update {none;};
+};
+
+
+Create Zone files
+cd /var/named
+touch forward.lab
+touch reverse.lab
+
+systemctl enable named
+systemctl start named
+
+firewall-cmd --permanent --add-port=53/tcp
+firewall-cmd --permanent --add-port=53/udp
+
+chgrp named -R /var/named
+chown -v root:named /etc/named.conf
+restorecon -rv /var/named
+restorecon /etc/named.conf
+
+named-checkconf /etc/named.conf
+named-checkzone lab.local /var/named/forward.lab
+named-checkzone lab.local /var/named/reverse.lab
+
+vi /etc/susconfig/network-scripts/ifcg-xxxx
+DNS=192.168.1.108
+
+vi /etc/resolv.conf
+nameserver=192.168.1.108
+
+
+
+
+Hostname/IP Lookup
+nslookup
+dig
+
+
+NTP
+/etc/ntp.conf
+systemctl  restart ntpd
+mtpq
+Chronyd
+/etc/chronyd.conf
+/var/log/chrony
+command chronyc
+
+
+
+SendMail
+yum install sendmail
+yum install sendmail-cf
+/etc/mail/sendmail.mc
+/etc/mail/sendmail.cf
+/etc/mail
+
+
+Web Server(httpd)
+yum install httpd
+/etc/http/conf/httpd.conf
+/var/www/html/index.html  = site home page
+/var/log/http     = log files
+
+
+Central Logger(Rsyslog)
+Generate Logs and collect them from other servers
+
+package:rsyslog
+/etc/rsyslog.conf
+
+
+
+
+Linux OS Hardening
+User accounts
+Remove un-wanted packages
+Stop un-used services
+Check on Listening ports
+Secure SSH Configuration
+Enable Firewall(iptables/firewalld)
+Enable SELinux
+Change Listening Services Port Numbers
+Keep OS updated
+
+chage -l |user|
+cat /etc/login.defs
+cat /etc/pam.d
+
+rpm -qa       = check instaled packages
+rpm -e       = remove package
+
+systemctl -a
+netstat -tunlp
+
+firewall-cmd --list-services
+firewall-cmd --list-all
+iptables --list
+
+
+firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --permanent --add-port 8080/tcp
+
+yum install firewall-config
+firewall-config      =firewall management gui
+
+/etc/firewalld/firewalld.conf
+
+SElinux
+sestatus
+cd /etc/sysconfig 
+vi selinux
+
+stat |firename|
+man chcon
+man checkpolicy
+
+
+
+OpenLDAP Installation
+service:slapd
+systemctl enable slapd
+systemctl start slapd
+
+/etc/openldap/slapd.d
+
+yum install *openldap*
+
+
+Trace Network Traffic(traceroute)
+information about packet from source to destination
+
+traceroute "|site|
+
+
+
+Open Image File
+yum install GraphicsMagick
+display |imagefile|
+
+
+SSH-Keys Access Remote Server without Password
+Repetitive logins
+Automation through scripts
+
+Keys are generated to users
+ssh-keygen
+/root/.ssh/
+ssh-copy-id root@|ipaddress|
+
+ssh -l root@|ipaddress
+
+
+
+System Run Level
+0   =    shutdown
+1   =  	 single user mode
+6   = 	 Reboot system
+
+2   =   Multiuser without networking
+3   =   Multiuser with networking
+5   =   Multiuser with networking and GUI
+who -r    = check which level is used
+
+
+Linux Boot Process
+BIOS  Basic Input/Output System execute MBR
+MBR Master Boot Record execute GRUB
+GRUB  Grand Unified Bootloader execute Kernel
+Kernel  Kernel execute /sbin/init
+init   execute runlevel programs
+RunLevel   executed from /etc/rc.d/rc*.d
+
+Newer version
+/etc/systemd/system/default.target
+
+run level
+systemctl set-default 
+
+Older version 
+/etc/inittab
+
+systemd    service manager(manage boot sequence)
+
+BIOS
+	POST
+	MBR
+	GRUB2  = Grand Unified Boot Loader 
+		/boot/grub2/grub.cfg
+	Kernel  Loads drivers from initrd.img
+	systemd =System deamon
+	reads =/etc/systemd/system/default.target to run-level(0-6)
+	
+	
+Message of the day
+/etc/motd
+
+
+/etc/profile.d/motd.sh
+#!/bin/bash
+#
+echo -e "
+#####################################
+#
+# Welcome to `hostname`
+# This system is running `cat /etc/redhat-release`
+# kernel is `uname -r`
+#
+# You are logged in as `whoami`
+
+/etc/ssh/sshd_config
+#PrintMotd yes to no
+systemctl restard sshd.service
+
+
+Storage
+Local Storage
+SAN(Storage Area Network)
+NAS(Network Attached Storage)
+
+Disk Partition
+df
+df -h      =  human readable 
+df -T    = check disk type
+
+
+
+fdisk -l
+
+Adding Disk and Creating Partition
+dfisk /dev/|diskname|
+press n
+press w
+mkfs.xfs /dev/sdb1
+mount /dev/sdb1 |systemdirectory|/data
+vi /etc/fstab
+add line
+/dev/sdb1 press tab	/data	xfs	defaults	0	0	
+:r!blkid /dev/vda1
+Umounting 
+umount /data
+
+Mount again
+mount -a
+
+
+Logical Volume Management(LVM)
+Combining disks together
+
+Physical Volume create and display
+pvcreate /dev/|partitionname|
+pvremove -f |partitionmame|
+pvdisplay
+
+Volume Group
+vgcreate |volumegroup| /dev/|diskpartitionname|
+vgremove -f |name|
+vgdisplay
+
+lvcreate -n |name| --size |logicalpartitionsize| |Volumegroup|
+lvremove -f |name|
+Add and Extend Disk using LVM
+pvcreate |partitionname|
+pvremove -f |partitionmame|
+
+vgextend |group| |diskpartitionname|
+lvextend -L+1G |volumegrouopwithlv|
+xfs_growfs |volumegroupwithlv|
+
+
+
+
+
+Adding swapspace
+When RAM is full swap space helps to move inactive pages to swap space
+Recommended swap size =Twice size of RAM
+dd if=dev/zero of=/newswap bs=1M count=1024
+mkswa /newswap
+swapon /newswap
+vi /etc/fstab
+/newswap swap	swap defaults 0	0
+
+To remove swap
+swapoff /newswap
+rm /newswap
+free -m
+
+
+RAID
+Redundand Array of Independent Disks
+0 = Extending two disks
+1 = Mirror
+5 = Mirror + extend
+
+
+
+File System Check
+Fsck     = check and repail filesystems(ext2,ext3,ext4)
+xfs_repair    =check repair xfs filesystem type
+-f filesystem check even if clean
+-y attempt to fix problems automatically
+Fsck codes:
+0 = No errors
+1 = Filesystem errors corrected
+2 = System should be rebooted
+3 = Filesystem errors left uncorrected
+8 = Operational error
+16 = Usage or syntax error
+32 = fsck cancelled by user
+128 = shared library error
+echo $?
+
+
+System Backup(dd Command)
+Backup disk dd
+dd if=|sourcefile| of=|destinationfile|
+
+
+
+Network File System(NFS)
+Server Configuration
+yum install nfs-utils libnfssidmap
+
+systemct enable rpcbind
+systemctl enable nfs-server
+system start rpcbind, nfs-server,nfs-idmapd
+
+/etc/exports     = need to be modified
+
+/|file| |hostip|(rw,sync,no_root_squash)  = for only 1 host
+/|file| *(rw,sync,no_root_squash)  = for everyone
+
+Export NFS filesystem
+exportfs -rv
+
+
+
+
+Client Configuration
+yum install nfs-utils rpcbind
+
+service rpcbind start
+
+ps -ef |egrep |firewall|iptable"
+
+showmount -e |nfsserverip|
+
+mkdir /mnt/app
+
+mount |nfsseserverip:/|shareddirector| |destinationdirectory|
+
+df -h
+
+
+
+Samba 
+Linux Tools allow Sharing files and printers with other OS
+Works like NFS(Only with Linux OS)  Samba works with Windows,Linux)
+
+Samba shares filesystem through SMB(Server Message Block)
+Another protocol CIFS(Common Internet File System)
+Cifs is extension on SMB
+CIFS = SMB
+
+yum install samba samba-client samba-common
+
+firewall-cmd --zone=public --permanent --add-service=samba
+chmod a+rwx /|filedirectory
+chown nobody:nobody /|filedirectory
+
+sestatus
+vi /etc/selinux/config
+
+/etc/samba/smb.conf
+
+[global]
+ 	workgroup = WORKGROUP
+	netbios name = centos
+	security = user
+	map to guest = bad user
+	dns proxy = no
+[Anonymous]
+	path = /samba/morepretzels
+	browsable = yes
+	writable = yes
+	guest ok = yes
+	guest only = yes
+	read only = no
+
+command testparm
+
+
+systemctl start smb
+systemctl start nmb
+
+On Windows 
+\\|ipaddress|
+
+
+On Linux Client
+yum install cifs-utils samba-client
+mount -t //192.168.1.108/Anonymous /mnt/|directoryname|
+
+
+Resume Workshop
+Interview
+
+
+
+mount -t //192.168.1.108/public /lokaler/mountpoint
+mount -t cifs //192.168.1.108/public /lokaler/mountpoint -o user=nobody
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ethtool
+mii-tool
+netstat -rnv
+
+Orphaned Package
+All packages no longer dependend of another package
+rpm yum-utils
+
+package-cleanup --leaves    =  remove orphaned packages
+apt-get autoremove
+
+SElinux
+Security-Enhanced Linux
+Enforcing=Enabled
+Permissive=Disabled but logs the activity
+Disabled=Disabled and not activity logs
+
+sestatus 
+getenforce
+
+setenforce 0     = Permissive/Disable
+setenforce 1     =  Enable
+/etc/selinux/config
+/.autorelabel
+
+lsd -dZ /etc/httpd
+ps axz |grep httpd
+netstat -tnlpZ |grep http
+
+semanage 
+boolean    = ON/OFF switch
+
+List of All booleans
+getsebool -a
+semanage boolean -l
+
+
+setsebool -P boolean_name on    =   Turn on boolean
+
+
+journalctl
+
+Change label
+chcon -t httpd_sys_content_t |Filename|
+semanage -t httpd_sys_content_t |Filename|
+
+
+
+
+Firewall
+firewall-cmd --get-zones
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --list-all
+firewall-cmd --list-all
+
+
+firewall-cmd --add-service=http
+firewall-cmd --add-service=http --permanent
+firewall-cmd --remove-service=http 
+firewall-cmd --remove-service=http --permanent
+firewall-cmd --reload
+
+/usr/lib/firewalld/services/allservices.xml     =After added new xml
+systemctl restart firewalld
+firewall-cmd --get-services
+
+firewall-cmd --add-port=|port|/|tcp or udp|
+firewall-cmd --remove-port=|port|/|tcp or udp|
+
+firewall-cmd --add-rich-rule='rule family="ipv4" source address="|ipaddress|" reject'
+firewall-cmd --add-icmp-block-inversion
+host -t a www.facebook.com =   find ip address
+firewall-cmd --direct -add-rule ipv4 filter OUTPUT 0 -d 31.13.81.36 -j DROP
+firewall-cmd --direct --get-all-rules
+
+
+Types of Security Threats
+DDos
+Hacking
+Malware
+Pharming
+Phising
+Ransomware
+spam
+Spoofing
+Spyware
+Trojan Horses
+Wifi-Eavesdropping
+Viruses
+Worms
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
